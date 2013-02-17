@@ -4,11 +4,12 @@ class Account_Controller extends Base_Controller
 {
     public function action_index()
     {
-        echo "This is the profile page.";
+        echo "Welcome to";
     }
-    public function action_login()
+    public function action_login($name, $place)
     {
-        echo "This is the login form.";
+        echo "This is the login form. {$name} +  {$place}";
+        return View::make('hello');
     }
     public function action_logout()
     {
