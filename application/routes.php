@@ -32,9 +32,40 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home.index');
+Route::get('/', function() {
+        return View::make('login');
+});
+Route::get('view/(:num)', function($post) {
+    // this is our single view
+});
+Route::get('admin', array('before' => 'auth', 'do' => function() {
+    $user = Auth::user();
+    return View::make('new')->with('user', $user);
+}));
+Route::post('admin', array('before' => 'auth', 'do' => function() {
+    // handle the create new post form
+}));
+Route::get('login', function() {
+        return View::make('login');
+});
+Route::post('login', function() {
+    $userdata = array(
+        'username' => Input::get('email'),
+        'password' => Input::get('password')
+    );
+    if ( Auth::attempt($userdata) )
+    {
+        return Redirect::to('admin');
+    }
+    else
+    {
+        return Redirect::to('login')
+            ->with('login_errors', true);
+    }
+});
+Route::get('logout', function() {
+   Auth::logout();
+    return Redirect::to('/');
 });
 
 /*
