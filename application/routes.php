@@ -40,6 +40,7 @@ Route::get('view/(:num)', function($post) {
 });
 Route::get('admin', array('before' => 'auth', 'do' => function() {
     $user = Auth::user();
+    
     return View::make('new')->with('user', $user);
 }));
 Route::post('admin', array('before' => 'auth', 'do' => function() {
